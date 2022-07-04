@@ -2,13 +2,15 @@ const INITIAL_TIME = 60000;
 const TIME_INTERVAL = 100;
 const INITIAL_SCORE = 0;
 const WORD_LENGTH = 5;
+const NUMBER_DECIMALS = 1;
+const NUMBER_DISPLAY_SIZE = 5;
 
 const init = () => {
 	const words = ["encore","lequel","encore","rien","quand","chambre","prendre","faire","passer","attendre","ou","non","pays","sur","me","rester","quatre","son","rien","vingt","nouveau","comme","ciel","avant","aimer","porte","bien","chez","moins","me","il","où","deux","jeune","tête","chercher","non","venir","chambre","dieu","an","entrer","bien","moi","yeux","pied","sans","tant","te","mourir","pour","entre","être","pays","petit","quel","ne","ne","cela","chose","il","au","passer","croire","parce","que","moment","et","femme","y","trois","pays","sans","vivre","passer","contre","revenir","ville","maison","ce","quel","dont","ami","heure","eau","devenir","venir","gens","porter","rester","aimer","jamais","comprendre","dire","premier","regard","beau","nom","quel","ainsi","quand","se","dieu","oui","trois","demander","car","heure","cela","jour","depuis","entendre","ça","alors","au","le","frère","tenir","là","tête","avec","rien","votre","autre","mer","ami","maison","lequel","lui","si","chercher","jusque","oui","très","ce","chaque","aussi","bon","pendant","avoir","enfant","rendre","air","plus","gens","vieux","sembler","tout","moment","seul","monde","petit","déjà","mer","je","beau","nouveau","si","quatre","notre","falloir","tenir","cent","aimer","être","penser","fois","donner","bon","alors","croire","mari","qui","mon","comprendre","chercher","chez","dont","jour","faire","porter","tu","vie","tout","gens","enfant","ce","moi","parler","quelque","dans","père","trop","ciel","entrer","entendre","il","toi","devant","car","depuis","après","ville","comprendre","en","vieux","du","de","pas","par","voir","nuit","mais","pas","et","heure","votre","très","sous","nom","même","ni","reprendre","pouvoir","elle","au","homme","main","avec","sembler","frère","entendre","leur","dont","puis","homme","aller","parler","si","notre","autre","voix","premier","toi","oui","mari","savoir","se","tant","porter","soir","celui","jeune","pouvoir","deux","jusque","chambre","lequel","avoir","premier","chez","aussi","amour","ne","sentir","mort","nuit","encore","vivre","contre","trouver","mettre","sentir","parce","que","an","comme","entre","y","revenir","qui","puis","tu","beau","enfin","très","sans","reprendre","ville","devoir","sortir","celui","peu","de","mettre","elle","monde","pour","ni","moins","vivre","ou","vingt","vouloir","yeux","à","y","aller","arriver","vous","on","même","lui","appeler","nous","rue","avant","revenir","un","donc","contre","trop","depuis","ciel","son","mari","pour","peu","quelque","que","temps","rue","savoir","dire","aussi","vouloir","eau","ça","mourir","grand","votre","grand","arriver","entrer","regarder","terre","là","fille","à","devenir","noir","seul","ça","où","non","fille","rester","sur","jamais","côté","soir","noir","o"];
 	const previousWords = document.getElementById("previousWords");
 	const currentWord = document.getElementById("currentWord");
 	const nextWords = document.getElementById("nextWords");
-	const timer = document.getElementById("timer");
+	const timer_elem = document.getElementById("timer");
 	const score_elem = document.getElementById("score");
 	const accuracy_elem = document.getElementById("accuracy");
 	const play = document.getElementById("play");
@@ -52,13 +54,6 @@ const init = () => {
 	}
 
 	/**
-	 * Displays the time in DOM.
-	 */
-	const displayTimer = () => {
-		timer.innerText = " " + (time / 1000).toFixed(1);
-	}
-
-	/**
 	 * Updates the time.
 	 */
 	const updateTimer = () => {
@@ -68,38 +63,54 @@ const init = () => {
 			currentWord.value = "";
 			clearInterval(timerInterval);
 		}
-		displayTimer();
+	}
+	
+	/**
+	 * Displays the time in DOM.
+	 */
+	 const displayTimer = () => {
+		displayNumber(timer_elem, (time / 1000));
 	}
 
 	/**
 	 * Displays the score in DOM.
 	 */
 	const displayScore = () => {
-		let text;
-		let WPM = ((score / WORD_LENGTH) / ((INITIAL_TIME - time) / INITIAL_TIME)).toFixed(2);
-		if (isNaN(WPM)) {
-			text = " 0.00";
-		} else {
-			text = " " + WPM.toString();
-		}
-		score_elem.innerText = text;
+		displayNumber(score_elem, ((score / WORD_LENGTH) / ((INITIAL_TIME - time) / INITIAL_TIME)));
 	}
 
 	/**
 	 * Displays accuracy in DOM.
 	 */
 	const displayAccuracy = () => {
-		let text;
-		if (isNaN(accuracy)) {
-			text = " 0.00%";
-		} else {
-			text = " " + accuracy.toFixed(2).toString() + "%";
-		}
-		accuracy_elem.innerText = text;
+		displayNumber(accuracy_elem, accuracy, "%");
+	}
+
+	/**
+	 * Displays a number in DOM
+	 * @param {*} element Element in which the number will be rendered
+	 * @param {*} number The number to be displayed
+	 * @param {*} unit The number's unit if there is any
+	 * @param {*} nanValue Default value if number is NaN
+	 */
+	const displayNumber = (element, number, unit = "", nanValue = 0) => {
+		let displayText;
+
+		if(isNaN(number)) displayText = nanValue;
+		else displayText = number;
+
+		displayText = displayText.toFixed(NUMBER_DECIMALS)
+				   .toString()
+				   .padStart(NUMBER_DISPLAY_SIZE, " ")
+				   + unit;
+		
+		element.innerText = displayText;
+		element.style.fontFamily = "Roboto Mono, monospace";
 	}
 
 	const update = () => {
 		updateTimer();
+		displayTimer();
 		displayScore();
 		displayAccuracy();
 	}

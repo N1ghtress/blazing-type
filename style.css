@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Roboto+Slab:wght@500&display=swap');
 
 * {
 	margin: 0;
@@ -84,12 +84,21 @@ body {
 .nextWords > div.fade {
 	opacity: 0;
 }
+#timer {
+	white-space: pre-wrap;
+}
 #timer::before {
-	content: "TIME";
+	content: "TIME:";
+}
+#score {
+	white-space: pre-wrap;
 }
 #score::before {
-	content: "WPM";
+	content: "WPM: ";
+}
+#accuracy {
+	white-space: pre-wrap;
 }
 #accuracy::before {
-	content: "ACC";
+	content: "ACC: ";
 }
