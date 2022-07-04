@@ -1,2 +1,2 @@
 # Blazing Type
-A typing game just like 10fastfingers.
+A typing game just like [10fastfingers](https://10fastfingers.com/).
