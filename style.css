@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Roboto+Slab:wght@500&display=swap');
 
-* {
+*, *:before, *:after {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -19,7 +19,7 @@ body {
 .game-container {
 	height: 100%;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
@@ -29,60 +29,37 @@ body {
 .margin {
 	margin: 0.5rem;
 }
-.font-1rem {
+div, a, button, p, textarea, span {
 	font-size: 1rem;
 }
-.words {
-	height: 100%;
+#word-container {
+	width: 40%;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-
-	background-color: #888888;
+	align-items: center;
 }
-.previousWords {
-	height: calc((100vh / 2) - 2rem);
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	align-items: flex-start;
-	font-size: 1rem;
+#words {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	line-height: 1.6rem;
+	overflow: hidden;
+	background-color: bisque;
 }
-.previousWords > div {
+#words > * {
+	position: inherit;
+	top: 0px;
+	left: 0px;
 	margin-left: 0.5rem;
-	margin-bottom: 0.5rem;
-	opacity: 1;
-	transition: opacity 1s;
 }
-.previousWords > div.fade {
-	opacity: 0;
-}
-.currentWord {
+#typeArea {
 	border: none;
 	outline: none;
 	overflow: auto;
 	resize: none;
 	color: white;
 	background-color: black;
-	font-size: 1rem;
 	font-weight: 500;
-}
-.nextWords {
-	height: calc((100vh / 2) - 2rem);
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: flex-start;
-	font-size: 1rem;
-}
-.nextWords > div {
-	margin-top: 0.5rem;
-	margin-left: 0.5rem;
-	opacity: 1;
-	transition: opacity 1s;
-}
-.nextWords > div.fade {
-	opacity: 0;
 }
 #timer {
 	white-space: pre-wrap;
