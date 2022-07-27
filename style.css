@@ -29,11 +29,11 @@ body {
 .margin {
 	margin: 0.5rem;
 }
-div, a, button, p, textarea, span {
+div, a, button, p, input, span {
 	font-size: 1rem;
 }
 #word-container {
-	width: 40%;
+	width: 60%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -42,8 +42,9 @@ div, a, button, p, textarea, span {
 	position: relative;
 	top: 0px;
 	left: 0px;
+	height: 4rem;
 	line-height: 1.6rem;
-	overflow: hidden;
+	overflow-y: hidden;
 	background-color: bisque;
 }
 #words > * {
@@ -52,7 +53,10 @@ div, a, button, p, textarea, span {
 	left: 0px;
 	margin-left: 0.5rem;
 }
-#typeArea {
+span:nth-child(10n) {
+	display: inline-block;
+}
+#input {
 	border: none;
 	outline: none;
 	overflow: auto;
